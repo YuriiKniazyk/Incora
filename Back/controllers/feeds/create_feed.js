@@ -11,12 +11,15 @@ module.exports = async (req, res) => {
             username,
             title,
             url
+        }).then(feed =>{
+            res.status(200).json({
+                succses: true,
+                msg: 'OK',
+                feed
+            });
         });
 
-        res.status(200).json({
-            succses: true,
-            msg: 'OK'
-        });
+       
     } catch (e) {
 
         res.status(400).json({

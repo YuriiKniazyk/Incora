@@ -2,7 +2,8 @@ module.exports = (sequelize, DataTypes) => {
     const Feeds = sequelize.define('Feeds', {
         id: {
             type: DataTypes.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true
         },
         username: {
             type: DataTypes.STRING,
