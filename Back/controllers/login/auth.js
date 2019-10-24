@@ -7,13 +7,13 @@ module.exports = async (req, res, next) => {
         
         if (!username || !password) throw new Error('Some field is empty!');
         
-        const isReg = await feedModel.findOne({
-            where: {
-                username,
-            }
-        });
+        // const isReg = await feedModel.findOne({
+        //     where: {
+        //         username,
+        //     }
+        // });
 
-        if (!isReg) throw new Error('You are not register!!!');
+        // if (!isReg) throw new Error('You are not register!!!');
 
         res.status(200).json({
             succses: true,

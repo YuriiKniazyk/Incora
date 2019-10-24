@@ -1,7 +1,5 @@
 const express = require('express');
 const app = express();
-const router = require('express').Router();
-const path = require('path');
 const cors = require('cors');
 const dataBase = require('./db/index').getInstance();
 dataBase.setModels();
@@ -32,12 +30,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => { res.sendFile(path.join(__dirname, 'index.html')); });
+app.get('/', (req, res, next) =>  res.json('HI From RSS Parser API'));
 app.use('/feed', cors(corsOptions), feedRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
   explorer: true,
 }));
-app.use('/api/v1', router);
 app.use('*', cors(corsOptions), error404);
 
 app.listen(config.port, err => {

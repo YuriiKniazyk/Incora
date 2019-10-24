@@ -1,3 +1,184 @@
 {
-"swagger": "2.0"
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Feed",
+    "description": "RSS Parser",
+    "contact": {
+      "name": "Yurii Kniazyk",
+      "email": "y.kniazyk@gmail.com",
+      "url": "https://github.com/YuriiKniazyk"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "localhost:3300",
+  "basePath": "/",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/feed/login": {
+      "post": {
+        "description": "This method is used to authenticate basic user",
+        "parameters": [
+          {
+            "name": "username",
+            "schema": {
+              "type": "object"
+            },
+            "description": "this is username",
+            "properties": {
+              "username": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login success"
+          },
+          "400": {
+            "description": "This error will be thawed when some some filed is empty",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Some field is empty"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "This error will be present when user is not present in dataBase",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "You are not register!!!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feed/create": {
+      "post": {
+        "description": "This method is used to create Feed",
+        "parameters": [
+          {
+            "username": "body",
+            "title": "body",
+            "url": "body",
+            "definition": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "This error will be thawed when some some filed is empty",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Some field is empty"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feed/delete": {
+      "delete": {
+        "description": "This method is used to delete Feed by id&username",
+        "parameters": [
+          {
+            "id": "id object"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "This error will be thawed when some filed is empty",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "WHERE parameter \"id\" has invalid \"undefined\" value"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feed/list": {
+      "get": {
+        "description": "This method is used to list all Feed",
+        "parameters": [
+          { }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "This error will be thawed when some error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "error.message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

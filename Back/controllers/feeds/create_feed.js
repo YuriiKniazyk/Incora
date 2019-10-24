@@ -3,15 +3,14 @@ const db = require('../../db/index').getInstance();
 module.exports = async (req, res) => {
     try {
         const feedModel = db.getModel('feeds');
-        const { username, title, url, definition } = req.body;
+        const { username, title, url } = req.body;
         
-        if (!username || !title || !url || !definition) throw new Error('Some field is empty!');
+        if (!username || !title || !url ) throw new Error('Some field is empty!');
 
         await feedModel.create({
             username,
             title,
-            url,
-            definition
+            url
         });
 
         res.status(200).json({

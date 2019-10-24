@@ -4,13 +4,11 @@ const db = require('../../db/index').getInstance();
 module.exports = async (req, res, next) => {
     try {
         const feedModel = await db.getModel('feeds');
-        const {id} = req.body;
+        const {id, username} = req.body;
 
         await feedModel.destroy({
             where: {
-                [Op.or]: [{
-                    id,
-                }]
+                id, username
             }
         });
         

@@ -1,12 +1,15 @@
 const db = require('../../db/index').getInstance();
-const Op = require('sequelize').Op;
 
 module.exports = async (req, res, next) => {
     try {
         
         const feedModel = await db.getModel('feeds');
 
-        const allFeeds = await feedModel.findAll({ attributes: ['id', 'url'] });
+        const {username} = req.body;
+        const allFeeds = await feedModel.findAll({ 
+            where: {
+                username
+        }});
 
         res.status(200).json({
             succses: true,
