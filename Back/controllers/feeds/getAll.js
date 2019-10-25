@@ -4,8 +4,8 @@ module.exports = async (req, res, next) => {
     try {
         
         const feedModel = await db.getModel('feeds');
-
-        const {username} = req.body;
+        const {username} = req.query;;
+        
         const allFeeds = await feedModel.findAll({ 
             where: {
                 username

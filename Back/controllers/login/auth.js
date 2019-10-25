@@ -2,7 +2,7 @@ const db = require('../../db/index').getInstance();
 
 module.exports = async (req, res, next) => {
     try {
-        const feedModel = db.getModel('feeds');
+        //const feedModel = db.getModel('feeds');
         const { username, password } = req.body;       
         
         if (!username || !password) throw new Error('Some field is empty!');

@@ -27,24 +27,51 @@
         "description": "This method is used to authenticate basic user",
         "parameters": [
           {
-            "name": "username",
+            "name": "login",
+            "in": "body",
+            "required": true,
+            "description": "User to login system",
             "schema": {
-              "type": "object"
-            },
-            "description": "this is username",
-            "properties": {
-              "username": {
-                "type": "string"
-              },
-              "password": {
-                "type": "string"
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "required": true,
+                  "exampel": "admin"
+                },
+                "password": {
+                  "type": "string",
+                  "required": true,
+                  "exampel": "admin"
+                }
               }
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Login success"
+            "description": "Login success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "succses": {
+                  "type": "boolean",
+                  "exampel": true
+                },
+                "token": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string",
+                      "example": "token"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "Bearer"
+                    }
+                  }
+                }
+              }
+            }
           },
           "400": {
             "description": "This error will be thawed when some some filed is empty",
@@ -88,15 +115,68 @@
         "description": "This method is used to create Feed",
         "parameters": [
           {
-            "username": "body",
-            "title": "body",
-            "url": "body",
-            "definition": "body"
+            "name": "created",
+            "in": "body",
+            "required": true,
+            "description": "Created feed",
+            "schema": {
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "required": true,
+                  "exampel": "admin"
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "exampel": "admin"
+                },
+                "url": {
+                  "type": "string",
+                  "required": true,
+                  "exampel": "admin"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "succses": {
+                  "type": "boolean",
+                  "exampel": true
+                },
+                "msg": {
+                  "type": "string",
+                  "exampel": "ok"
+                },
+                "feed": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": "1"
+                    },
+                    "username": {
+                      "type": "string",
+                      "example": "admin"
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "admin"
+                    },
+                    "url": {
+                      "type": "string",
+                      "example": "admin"
+                    }
+                  }
+                }
+              }
+            }
           },
           "400": {
             "description": "This error will be thawed when some some filed is empty",
@@ -123,15 +203,45 @@
         "description": "This method is used to delete Feed by id&username",
         "parameters": [
           {
-            "id": "id object"
+            "name": "delete",
+            "in": "body",
+            "required": true,
+            "description": "Delete feed",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "required": true,
+                  "exampel": "1"
+                },
+                "username": {
+                  "type": "string",
+                  "required": true,
+                  "exampel": "admin"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "succses": {
+                  "type": "boolean",
+                  "exampel": true
+                },
+                "msg": {
+                  "type": "string",
+                  "exampel": "ok"
+                }
+              }
+            }
           },
           "400": {
-            "description": "This error will be thawed when some filed is empty",
+            "description": "This error will be thawed when parametr id undefined",
             "schema": {
               "type": "object",
               "properties": {
@@ -154,11 +264,159 @@
       "get": {
         "description": "This method is used to list all Feed",
         "parameters": [
-          { }
+          {
+            "name": "username",
+            "in": "query",
+            "required": true
+          }
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "succses": {
+                  "type": "boolean",
+                  "exampel": true
+                },
+                "allFeed": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": "1"
+                    },
+                    "username": {
+                      "type": "string",
+                      "example": "admin"
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "NASA Breaking news"
+                    },
+                    "url": {
+                      "type": "string",
+                      "example": "https://www.nasa.gov/rss/dyn/breaking_news.rss"
+                    },
+                    "definition": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "...": {
+                      "example": "..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "This error will be thawed when some error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "error.message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feed/fetchfeed": {
+      "get": {
+        "description": "This method is used to pars Feed",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "succses": {
+                  "type": "boolean",
+                  "exampel": true
+                },
+                "feeddb": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": "1"
+                    },
+                    "username": {
+                      "type": "string",
+                      "example": "admin"
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "NASA Breaking news"
+                    },
+                    "url": {
+                      "type": "string",
+                      "example": "https://www.nasa.gov/rss/dyn/breaking_news.rss"
+                    },
+                    "definition": {
+                      "type": "string",
+                      "example": "./files/admin/rssfile1.json"
+                    }
+                  }
+                },
+                "rss": {
+                  "type": "object",
+                  "properties": {
+                    "items": [
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": "1"
+                          },
+                          "username": {
+                            "type": "string",
+                            "example": "admin"
+                          },
+                          "title": {
+                            "type": "string",
+                            "example": "NASA Breaking news"
+                          },
+                          "url": {
+                            "type": "string",
+                            "example": "https://www.nasa.gov/rss/dyn/breaking_news.rss"
+                          },
+                          "definition": {
+                            "type": "string",
+                            "example": "./files/admin/rssfile1.json"
+                          },
+                          "...": {
+                            "example": "..."
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           },
           "400": {
             "description": "This error will be thawed when some error",

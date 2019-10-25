@@ -32,9 +32,7 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res, next) =>  res.json('HI From RSS Parser API'));
 app.use('/feed', cors(corsOptions), feedRouter);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
-  explorer: true,
-}));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, { explorer: true }));
 app.use('*', cors(corsOptions), error404);
 
 app.listen(config.port, err => {

@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
 
         const feedModel = await db.getModel('feeds');
 
-        const { id, username } = req.body;
+        const { id, username } = req.query;
         const feeddb = await feedModel.findOne({
             where: {
                 id, 
