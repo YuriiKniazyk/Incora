@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import {
-    Redirect,
-
-  } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import AddFeed from '../addFeed/addFeed';
 
 const defaultFeeds = [
@@ -43,17 +40,17 @@ export default class Home extends Component {
             method: 'DELETE',
             body: JSON.stringify({ id, username })
         })
-        .then(response => response.json())
-        .then(data => {
-           if(data.succses){
-               this.setState((state) => ({
-                   feeds: state.feeds.filter((feed)=> feed.id !== id)
-               }));
-           }
-        })
-        .catch((e) => {
-            console.log(e);
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.succses) {
+                    this.setState((state) => ({
+                        feeds: state.feeds.filter((feed) => feed.id !== id)
+                    }));
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     }
 
     componentDidMount() {
@@ -64,23 +61,23 @@ export default class Home extends Component {
             },
             method: 'GET',
         })
-        .then(response => response.json())
-        .then(data => {
-            if(data.allFeed.length){
-                this.setState({feeds: data.allFeed})
-            } else {
-                this.setState({feeds: defaultFeeds});
+            .then(response => response.json())
+            .then(data => {
+                if (data.allFeed.length) {
+                    this.setState({ feeds: data.allFeed })
+                } else {
+                    this.setState({ feeds: defaultFeeds });
 
-            }
-        })
-        .catch((e) => {
-            console.log(e);
-        });
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     }
 
     addFeed = (feed) => {
         const updateFeed = [...this.state.feeds, feed];
-        this.setState({feeds: updateFeed});
+        this.setState({ feeds: updateFeed });
     }
 
     onFeedClick = (id, username) => {
@@ -91,32 +88,36 @@ export default class Home extends Component {
             },
             method: 'GET',
         })
-        .then(response => response.json())
-        .then(data => {
-            this.setState({rss: data.rss})
-        })
-        .catch((e) => {
-            console.log(e);
-        });
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ rss: data.rss })
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     }
 
     render() {
         console.log(this.state.rss)
         return (
             <div>
-                <ul>{this.state.feeds.map(({id, username, title, url})=>
-                <li onClick={() => this.onFeedClick(id, username)} key={id}> {title} {url} <button onClick={() => this.deleteFeed(id, username)}>Delete</button></li>
-                )}
-                </ul>
-                
-                <AddFeed  onAddFeed = {this.addFeed}/>
-                {this.state.rss && 
-                        <Redirect
-                            to={{
+                <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '600px' }}>
+                    {this.state.feeds.map(({ id, username, title, url }) =>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }} onClick={() => this.onFeedClick(id, username)} key={id}> {title} {url}
+                            <button onClick={() => this.deleteFeed(id, username)}>Delete</button>
+                        </div>
+                    )}
+                </div>
+                <br />
+                <AddFeed onAddFeed={this.addFeed} />
+
+                {this.state.rss &&
+                    <Redirect
+                        to={{
                             pathname: "/rss",
                             state: { rss: this.state.rss }
-                            }}
-                        />
+                        }}
+                    />
                 }
             </div>
         )

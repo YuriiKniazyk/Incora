@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Card, Divider  , CardHeader, Link   } from '@material-ui/core';
+import { Container, Card, CardHeader, Link   } from '@material-ui/core';
 
 export default (props) => {
     return (<Container>

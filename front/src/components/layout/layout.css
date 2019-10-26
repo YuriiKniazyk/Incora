@@ -1,9 +1,9 @@
 header{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     font-size: 20px;
-    background: grey;
+    background: skyblue;
     height: 30px;
 }
 a{
